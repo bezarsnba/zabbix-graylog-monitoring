@@ -2,6 +2,8 @@
 
 Template created to monitor GrayLog nodes through LLD (Low Level Discovery)
 
+We added a feature of Zabbix called LLD (Low Level Discovery) in the model, this automation seeks to facilitate the discovery of the nodes in GrayLog, so that you do not have to register the nodes manually just set the time of the discovery rule.
+
 ## Monitoring Itens:
 
 * GrayLog: Filter execution Time (FIltered, Incomming, Outgoing, Process)
@@ -61,7 +63,7 @@ def apiGrayLog(valueApi):
 }
 ```
 
-4. Check where the Include directory in the zabbix agent is stored:
+4. Check where the * .conf files in the zabbix agent are stored::
 
 ```bash
 # grep Include /etc/zabbix/zabbix_agentd.conf
@@ -85,7 +87,7 @@ UserParameter=graylog.discovery.node,/usr/bin/python3.4 /etc/zabbix/scripts/moni
 # systemctl restart zabbix-agent 
 ```
 
-6. Run a Zabbix Server test for the agent through zabbix_get
+6.Use zabbix_get to test some items: 
 
 ```bash
 # zabbix_get -s < IP Agent Zabbix > -k graylog.discovery.node
