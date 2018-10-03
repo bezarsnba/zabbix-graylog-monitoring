@@ -117,5 +117,7 @@ alive
 
 #### Reference
 Fonte: https://www.graylog.org/post/back-to-basics-monitoring-graylog
+
 Blog Onx Solutions: http://blog.onxsolutions.net/monitorando-node-graylog-usando-zabbix/
+
 MarketPlaceGraylog: https://marketplace.graylog.org/addons/1ad55d59-09a0-4dd4-9da6-2eccbbfbed1e
