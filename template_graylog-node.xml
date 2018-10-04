@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-10-04T12:04:02Z</date>
+    <date>2018-10-04T12:28:57Z</date>
     <groups>
         <group>
             <name>Onx Solutions</name>
@@ -499,7 +499,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>graylog.discovery.node</key>
-                    <delay>3m</delay>
+                    <delay>1h</delay>
                     <status>0</status>
                     <allowed_hosts/>
                     <snmpv3_contextname/>
