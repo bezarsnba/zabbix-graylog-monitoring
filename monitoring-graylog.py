@@ -7,6 +7,9 @@
 import requests
 import json
 import sys
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
 
 ## Credentials user##
 apiUserGray="<Username Graylog>"
@@ -17,7 +20,7 @@ key = sys.argv[1]
 
 ## Functions to login in Api Rest ##
 def apiGrayLog(valueApi):
-    r = requests.get('http://<Ip GrayLog Server>:9000/api/%s' % valueApi, auth=(apiUserGray,apiPassGray))
+    r = requests.get('http://<Ip GrayLog Server>:9000/api/%s' % valueApi, auth=(apiUserGray,apiPassGray), verify=False)
     return r.text 
 
 ## Function to get /system/metrics ##
