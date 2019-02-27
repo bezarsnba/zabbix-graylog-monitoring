@@ -17,6 +17,7 @@ We added a feature of Zabbix called LLD (Low Level Discovery) in the model, this
 ## Requirements
 
 - Zabbix 3.4;
+- GrayLog 2.4;
 - Zabbix Agent install on Graylog;
 - Python 3.4 or  > Python3;
 - Imports:
