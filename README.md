@@ -16,10 +16,10 @@ We added a feature of Zabbix called LLD (Low Level Discovery) in the model, this
 
 ## Requirements
 
-- Zabbix 3.4;
-- GrayLog 2.4;
-- Zabbix Agent install on Graylog;
-- Python 3.4 or  > Python3;
+- Zabbix 3.4 or above;
+- GrayLog 2.4 (works with Graylog 3.3);
+- Zabbix Agent installed on Graylog server;
+- Python 3.4 or simply Python > 3;
 - Imports:
     - import requests
     - import json
@@ -34,7 +34,8 @@ We added a feature of Zabbix called LLD (Low Level Discovery) in the model, this
 # cp monitoring-graylog.py  /etc/zabbix/scripts/
 # chmod +x monitoring-graylog.py
 ```
-2. Change the variables in the monitoring-graylog.py file:
+
+2. Create Graylog user (local) with password and change the variables in the monitoring-graylog.py file:
 
 ```bash
 cat monitoring-graylog.py
@@ -47,8 +48,9 @@ def apiGrayLog(valueApi):
     return r.text
 
 ```
+In most cases "\<Ip GrayLog Server\>" will be 127.0.0.1
 
-3. Run the script by passing the lldgraylognode parameter:
+3. Run the script by passing the lldgraylognode parameter to check if it's working properly:
 
 ```bash
 # python3.4 monitoring-graylog.py lldgraylognode
@@ -75,20 +77,21 @@ Include=/etc/zabbix/zabbix_agentd.conf.d/*.conf
 ```bash
 # cp user_parameter_graylog.conf /etc/zabbix/zabbix_agentd.conf.d/
 # cat user_parameter_graylog.conf
-UserParameter=graylog.node.men[*],/usr/bin/python3.4 /etc/zabbix/scripts/monitoring-graylog.py monnode $1 $2
-UserParameter=graylog.cluster.status[*],/usr/bin/python3.4 /etc/zabbix/scripts/monitoring-graylog.py moncluster $1 $2
-UserParameter=graylog.inter.log[*],/usr/bin/python3.4 /etc/zabbix/scripts/monitoring-graylog.py monmetric $1 $2
-UserParameter=graylog.journal.size[*],/usr/bin/python3.4 /etc/zabbix/scripts/monitoring-graylog.py monmetric $1 $2
-UserParameter=graylog.proc.buffer[*],/usr/bin/python3.4 /etc/zabbix/scripts/monitoring-graylog.py monprocessbuffer $1 $2
-UserParameter=graylog.discovery.node,/usr/bin/python3.4 /etc/zabbix/scripts/monitoring-graylog.py lldgraylognode
+UserParameter=graylog.node.men[*],/etc/zabbix/scripts/monitoring-graylog.py monnode $1 $2
+UserParameter=graylog.cluster.status[*],/etc/zabbix/scripts/monitoring-graylog.py moncluster $1 $2
+UserParameter=graylog.inter.log[*],/etc/zabbix/scripts/monitoring-graylog.py monmetric $1 $2
+UserParameter=graylog.journal.size[*],/etc/zabbix/scripts/monitoring-graylog.py monmetric $1 $2
+UserParameter=graylog.proc.buffer[*],/etc/zabbix/scripts/monitoring-graylog.py monprocessbuffer $1 $2
+UserParameter=graylog.discovery.node,/etc/zabbix/scripts/monitoring-graylog.py lldgraylognode
+
 ```
 6. Restart zabbix agent
 
 ```bash
-# systemctl restart zabbix-agent 
+# systemctl restart zabbix-agent
 ```
 
-6.Use zabbix_get to test some items: 
+6.Use zabbix_get (from zabbix server) to test some items:
 
 ```bash
 # zabbix_get -s < IP Agent Zabbix > -k graylog.discovery.node
@@ -103,7 +106,10 @@ UserParameter=graylog.discovery.node,/usr/bin/python3.4 /etc/zabbix/scripts/moni
 # zabbix_get -s < IP Agent Zabbix > -k graylog.cluster.status['2c0b3a0d-d8ff-4b20-ba8d-0e8330f0ab2e',lb_status]
 alive
 ```
-7. Import the template_graylog-node.xml template into your Zabbix!
+
+7. Import proper version of template to Zabbix Server:
+- Zabbix Server 3.4, 4.x - zabbix_3.4_template_graylog-node.xml
+- Zabbix Server 5.x - zabbix_5.0_template_graylog-node.xml
 
 # Screenshots
 
