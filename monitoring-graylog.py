@@ -1,8 +1,10 @@
-#!/usr/lib/python3.6
+#!/usr/bin/python3
+
 # Autor: Bezaleel Ramos( bramos@onxsolutions.net)
 # NickName: Beza
 # Date: 01/10/2018
 # Version: v2
+
 ## Imports##
 import requests
 import json
@@ -21,14 +23,14 @@ key = sys.argv[1]
 ## Functions to login in Api Rest ##
 def apiGrayLog(valueApi):
     r = requests.get('http://<Ip GrayLog Server>:9000/api/%s' % valueApi, auth=(apiUserGray,apiPassGray), verify=False)
-    return r.text 
+    return r.text
 
 ## Function to get /system/metrics ##
 def monmetric(itemMon01, itemMon02):
     getvaluemon = json.loads(apiGrayLog('system/metrics/%s' % itemMon01))
     print(getvaluemon[ itemMon02 ])
 
-## Function to get metrics shared bufffer Processors## 
+## Function to get metrics shared bufffer Processors##
 def monprocessbuffer(itemMon01, itemMon02):
     getvaluemon = json.loads(apiGrayLog('system/metrics/org.graylog2.shared.buffers.processors.%s' % itemMon01))
     print(getvaluemon[itemMon02 ])
@@ -54,10 +56,9 @@ def lldgraylognode():
     print(json.dumps({'data': arrayGetNode }, indent=4, separators=(',',':')))
 
 ## Test if parameter is lldgraylognode ##
-if key == 'lldgraylognode': 
-   eval(key+"()")
-
-if key !=  'lldgraylognode' :
+if key == 'lldgraylognode':
+    eval(key+"()")
+else :
     itemMon01 = sys.argv[2]
     itemMon02 = sys.argv[3]
     eval(key+"('{0}','{1}')".format( itemMon01, itemMon02))
